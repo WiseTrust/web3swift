@@ -12,18 +12,18 @@ let package = Package(
         .library(name: "web3swift", targets: ["web3swift"])
     ],
     dependencies: [
-        .package(name: "secp256k1", url: "https://github.com/Boilertalk/secp256k1.swift.git", from: "0.1.0"),
+        .package(url: "https://github.com/Boilertalk/secp256k1.swift.git", from: "0.1.7"),
         .package(url: "https://github.com/attaswift/BigInt.git", from: "5.3.0"),
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.5.1")
     ],
     targets: [
         .target(
             name: "Web3Core",
-            dependencies: ["secp256k1", "BigInt", "CryptoSwift"]
+            dependencies: [.product(name: "secp256k1", package: "secp256k1.swift"), "BigInt", "CryptoSwift"]
         ),
         .target(
             name: "web3swift",
-            dependencies: ["secp256k1", "Web3Core", "BigInt"],
+            dependencies: [.product(name: "secp256k1", package: "secp256k1.swift"), "Web3Core", "BigInt"],
             resources: [
                 .copy("./Browser/browser.js"),
                 .copy("./Browser/browser.min.js"),
